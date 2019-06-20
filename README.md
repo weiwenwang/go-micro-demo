@@ -1,14 +1,3 @@
----
-title: go-micro
-date: 2019-04-01 22:46:22
-tags:
-- 微服务
-- 服务注册发现
-categories:
-- GO
-
----
-
 go-micro-微服务框架
 
 ### 启动etcdv3集群

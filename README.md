@@ -138,10 +138,13 @@ thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.45:2379" lease
 found 2 leases
 05016b78d58c0234
 05016b78d58c0230
+
 thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.45:2379" lease timetolive 05016b78d58c0230 --keys
 lease 05016b78d58c0230 granted with TTL(30s), remaining(27s), attached keys([/micro-registry/go.micro.srv.greeter/go.micro.srv.greeter-6382949a-92c6-46c9-b5c9-4cfbb8ce2420])
+
 thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.45:2379" lease timetolive 05016b78d58c0230 --keys
 lease 05016b78d58c0230 granted with TTL(30s), remaining(21s), attached keys([/micro-registry/go.micro.srv.greeter/go.micro.srv.greeter-6382949a-92c6-46c9-b5c9-4cfbb8ce2420])
+
 thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.45:2379" lease timetolive 05016b78d58c0230 --keys
 lease 05016b78d58c0230 granted with TTL(30s), remaining(29s), attached keys([/micro-registry/go.micro.srv.greeter/go.micro.srv.greeter-6382949a-92c6-46c9-b5c9-4cfbb8ce2420])
 ```

@@ -75,21 +75,21 @@ HTTP API Listening on [::]:8080  监听到本地8080端口
 
 #### 启动greeter Api并注册到etcd
 
-cd go-micro-demo/api1
+cd go-micro-demo/api1(启动第一个)
 ```
 go run main.go --selector=cache --registry=etcdv3 --registry_address=http://192.168.3.45:2479
 ```
-cd go-micro-demo/api2
+cd go-micro-demo/api2(启动第二个)
 ```
 go run main.go --selector=cache --registry=etcdv3 --registry_address=http://192.168.3.45:2479
 ```
 
 #### 启动greeter srv并注册到etcd
-cd go-micro-demo/srv/srv1
+cd go-micro-demo/srv/srv1(启动第一个)
 ```
 go run main.go --selector=cache --registry=etcdv3 --registry_address=http://192.168.3.118:2379
 ```
-cd go-micro-demo/srv/srv2
+cd go-micro-demo/srv/srv2(启动第二个)
 ```
 go run main.go --selector=cache --registry=etcdv3 --registry_address=http://192.168.3.118:2379
 ```
@@ -128,3 +128,5 @@ http://localhost:8080/greeter/say/hello?name=John
     "message": "Hello John srv two. rand:a"
 }
 ```
+
+以上四种结果随机返回

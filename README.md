@@ -39,7 +39,14 @@ etcd --name cd2 \
 --initial-cluster-state new
 ```
 #### 测试etcd集群是否正常
-[![F6CCEAF6-4C23-4599-97E4-CBD35CB029FD.png](https://i.loli.net/2019/06/20/5d0b1c214bfab55031.png)](https://i.loli.net/2019/06/20/5d0b1c214bfab55031.png)
+thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.45:2379" endpoint health
+http://192.168.3.45:2379 is healthy: successfully committed proposal: took = 24.957199ms
+
+thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.45:2479" endpoint health
+http://192.168.3.45:2479 is healthy: successfully committed proposal: took = 19.160559ms
+
+thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.118:2379" endpoint health
+http://192.168.3.118:2379 is healthy: successfully committed proposal: took = 27.850165ms
 
 ### micro安装etcd插件
 

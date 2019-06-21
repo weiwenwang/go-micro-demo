@@ -22,7 +22,7 @@ func (s *Say) Hello(ctx context.Context, req *api.Request, rsp *api.Response) er
 
 	name, ok := req.Get["name"]
 	if !ok || len(name.Values) == 0 {
-		return errors.BadRequest("go.micro.api.greeter", "Name cannot be blank")
+		return errors.BadRequest("go.micro.api1.greeter", "Name cannot be blank")
 	}
 
 	response, err := s.Client.Hello(ctx, &demo.Request{
@@ -35,6 +35,7 @@ func (s *Say) Hello(ctx context.Context, req *api.Request, rsp *api.Response) er
 	rsp.StatusCode = 200
 	b, _ := json.Marshal(map[string]string{
 		"message": response.Msg,
+		"api": "api two",
 	})
 	rsp.Body = string(b)
 

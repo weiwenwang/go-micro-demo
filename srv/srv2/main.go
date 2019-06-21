@@ -1,21 +1,20 @@
 package main
 
 import (
-	"log"
-	"math/rand"
-	"time"
-
 	"context"
 	"github.com/micro/go-micro"
 	_ "github.com/micro/go-plugins/registry/etcdv3"
 	demo "github.com/weiwenwang/go-mcro-demo/srv/proto/demo"
+	"log"
+	"math/rand"
+	"time"
 )
 
 type Say struct{}
 
 func (s *Say) Hello(ctx context.Context, req *demo.Request, rsp *demo.Response) error {
 	log.Print("Received Say.Hello request")
-	rsp.Msg = "Hello " + req.Name + " abcd " + string(rand.Intn(100))
+	rsp.Msg = "Hello " + req.Name + " srv two. rand:" + string(rand.Intn(100))
 	return nil
 }
 

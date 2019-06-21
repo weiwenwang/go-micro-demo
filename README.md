@@ -65,7 +65,7 @@ $ micro --registry=etcdv3 list services
 git clone git@github.com:weiwenwang/go-mcro-demo.git
 cd go-micro-demo
 
-- --selector=cache的作用是客户端(api，srv)在调服务器的时候，不用每次都去etcd拿数据，减轻注册中心的压力
+- --selector=cache的作用是客户端(api,srv)在调服务器的时候,不用每次都去etcd拿数据,减轻注册中心的压力
 - api1, api2, srv1, srv2是为了模拟多节点, 测试负债均衡
 #### 启动Micro Api
 ```
@@ -130,3 +130,24 @@ http://localhost:8080/greeter/say/hello?name=John
 ```
 
 以上四种结果随机返回
+
+### 验证注册中心的ttl
+
+```
+thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.45:2379" lease list
+found 2 leases
+05016b78d58c0234
+05016b78d58c0230
+thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.45:2379" lease timetolive 05016b78d58c0230 --keys
+lease 05016b78d58c0230 granted with TTL(30s), remaining(27s), attached keys([/micro-registry/go.micro.srv.greeter/go.micro.srv.greeter-6382949a-92c6-46c9-b5c9-4cfbb8ce2420])
+thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.45:2379" lease timetolive 05016b78d58c0230 --keys
+lease 05016b78d58c0230 granted with TTL(30s), remaining(21s), attached keys([/micro-registry/go.micro.srv.greeter/go.micro.srv.greeter-6382949a-92c6-46c9-b5c9-4cfbb8ce2420])
+thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.45:2379" lease timetolive 05016b78d58c0230 --keys
+lease 05016b78d58c0230 granted with TTL(30s), remaining(29s), attached keys([/micro-registry/go.micro.srv.greeter/go.micro.srv.greeter-6382949a-92c6-46c9-b5c9-4cfbb8ce2420])
+```
+这里有两个lease ID, 选一个05016b78d58c0230, 可以看出是存的是srv, ttl是30,remaining小于20的时候就会重新变成30, 符合我们的代码设置
+
+```
+micro.RegisterTTL(time.Second*30),      // 这是设置注册到etcd那个key的过期时间
+micro.RegisterInterval(time.Second*10), // 这是服务去etcd报告自己还活着的周期
+```

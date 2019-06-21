@@ -65,8 +65,8 @@ $ micro --registry=etcdv3 list services
 git clone git@github.com:weiwenwang/go-mcro-demo.git
 cd go-micro-demo
 
---selector=cache的作用是客户端(api，srv)在调服务器的时候，不用每次都去etcd拿数据，减轻注册中心的压力
-
+- --selector=cache的作用是客户端(api，srv)在调服务器的时候，不用每次都去etcd拿数据，减轻注册中心的压力
+- api1, api2, srv1, srv2是为了模拟多节点, 测试负债均衡
 #### 启动Micro Api
 ```
 micro --selector=cache --registry=etcdv3 --registry_address=http://192.168.3.45:2479 api --handler=api
@@ -75,17 +75,24 @@ HTTP API Listening on [::]:8080  监听到本地8080端口
 
 #### 启动greeter Api并注册到etcd
 
-cd go-micro-demo/api
+cd go-micro-demo/api1
+```
+go run main.go --selector=cache --registry=etcdv3 --registry_address=http://192.168.3.45:2479
+```
+cd go-micro-demo/api2
 ```
 go run main.go --selector=cache --registry=etcdv3 --registry_address=http://192.168.3.45:2479
 ```
 
 #### 启动greeter srv并注册到etcd
-cd go-micro-demo/srv
+cd go-micro-demo/srv/srv1
 ```
 go run main.go --selector=cache --registry=etcdv3 --registry_address=http://192.168.3.118:2379
 ```
-
+cd go-micro-demo/srv/srv2
+```
+go run main.go --selector=cache --registry=etcdv3 --registry_address=http://192.168.3.118:2379
+```
 
 #### 逻辑图
 

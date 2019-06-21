@@ -102,23 +102,29 @@ go run main.go --selector=cache --registry=etcdv3 --registry_address=http://192.
 
 ### 查看etcdv3所有的key
 
-```
-$ etcdctl --endpoints="http://192.168.3.45:2379" --prefix --keys-only=true get /
-/micro-registry/go.micro.api.greeter/go.micro.api.greeter-749681bd-d47b-4f3e-be28-92014bf559b3
-
-/micro-registry/go.micro.api/go.micro.api-babd3725-c520-4d3e-8abd-fdb95b93d663
-
-/micro-registry/go.micro.srv.greeter/go.micro.srv.greeter-c96c6792-2d46-4932-8b00-2b4f3db7624e
-```
+[![etcd-list.png](https://i.loli.net/2019/06/21/5d0ca52a667dd46348.png)](https://i.loli.net/2019/06/21/5d0ca52a667dd46348.png)
 
 ### 浏览器访问Micro Api
 http://localhost:8080/greeter/say/hello?name=John
 
 ```
 {
-    "id": "go.micro.client",
-    "code": 500,
-    "detail": "error selecting go.micro.srv.greeter node: not found",
-    "status": "Internal Server Error"
+    "api": "api two",
+    "message": "Hello John srv one. rand:R"
+}
+
+{
+    "api": "api one",
+    "message": "Hello John srv one. rand:x"
+}
+
+{
+    "api": "api two",
+    "message": "Hello John srv two. rand:Y"
+}
+
+{
+    "api": "api one",
+    "message": "Hello John srv two. rand:a"
 }
 ```

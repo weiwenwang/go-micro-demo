@@ -39,6 +39,7 @@ etcd --name cd2 \
 --initial-cluster-state new
 ```
 #### 测试etcd集群是否正常
+```
 thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.45:2379" endpoint health
 http://192.168.3.45:2379 is healthy: successfully committed proposal: took = 24.957199ms
 
@@ -47,6 +48,7 @@ http://192.168.3.45:2479 is healthy: successfully committed proposal: took = 19.
 
 thomasdeMacBook-Pro:~ www1$ etcdctl --endpoints="http://192.168.3.118:2379" endpoint health
 http://192.168.3.118:2379 is healthy: successfully committed proposal: took = 27.850165ms
+```
 
 ### micro安装etcd插件
 
